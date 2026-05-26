@@ -3,7 +3,10 @@ const { MessageFlags, EmbedBuilder } = require('discord.js');
 
 class ServerInfoCommand extends Command {
   constructor(context, options) {
-    super(context, { ...options });
+    super(context, { ...options,
+      name: 'serverinfo',
+      description: 'Obtenir des informations sur le serveur',
+     });
   }
 
 

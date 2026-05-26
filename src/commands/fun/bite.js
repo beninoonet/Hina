@@ -9,13 +9,16 @@ dotenv.config();
 
 class BiteCommand extends Command {
   constructor(context, options) {
-    super(context, { ...options });
+    super(context, { ...options,
+      name: 'bite',
+      description: 'Mord quelqu\'un',
+     });
   }
 
   fetchWaifu() {
-      return fetch('https://api.waifu.pics/sfw/bite')
+      return fetch('https://nekos.best/api/v2/bite')
         .then(response => response.json())
-        .then(data => data.url)
+        .then(data => data.results[0].url)
         .catch(error => {
           console.error('Error fetching waifu image:', error);
           throw new Error('Failed to fetch waifu image');

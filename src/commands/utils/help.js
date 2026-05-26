@@ -3,7 +3,10 @@ const { EmbedBuilder } = require('discord.js');
 
 class HelpCommand extends Command {
   constructor(context, options) {
-    super(context, { ...options });
+    super(context, { ...options,
+      name: 'help',
+      description: 'obtenir de l\'aide sur les commandes disponibles',
+     });
   }
 
 
@@ -14,23 +17,38 @@ class HelpCommand extends Command {
     );
   }
     async chatInputRun(interaction) {
-      // Récupérer les commandes disponibles et les formater pour l'affichage
-      const commands = interaction.client.application.commands.cache;
-      // Boucle pour formater les commandes et leurs descriptions
-      const commandList = commands.map(cmd => `**/${cmd.name}**: ${cmd.description}`).join('\n');
-      // Filtrer les commandes pour n'afficher que celles qui sont pertinentes pour l'utilisateur
-      const filteredCommandList = commandList; // Vous pouvez ajouter une logique de filtrage ici si nécessaire
-      
-            // Créer un embed pour afficher les commandes disponibles
+        const commands = this.container.stores.get('commands');
+        const member = interaction.member;
+
+        const filteredCommands = commands.filter((cmd) => {
+            if (!cmd.description) return false; // Exclude commands without a description
+
+            // check if member has permissions for the command
+            if (cmd.options?.requiredUserPermissions) {
+                const requiredPermissions = new PermissionsBitField(cmd.options.requiredUserPermissions);
+                return member.permissions.has(requiredPermissions);
+            }
+
+            return true; // No permissions required, include the command
+        });
+
         const embed = new EmbedBuilder()
-        .setTitle('📖 Aide - Commandes disponibles'
-        
-        )
-        .setDescription(filteredCommandList)
-        .setColor('#00FF00')
-        .setFooter({ text: 'Utilisez /help pour plus de détails sur une commande spécifique.' });
-      await interaction.reply({ embeds: [embed], ephemeral: true });
-    }
+            .setTitle('🪧 Menu d\'aide')
+            .setColor('#0099ff')
+            .setDescription('Voici la liste des commandes disponibles.')
+            .setFooter({ text: `${filteredCommands.size} commandes disponibles - Hina` })
+            .setTimestamp();
+
+
+            for (const [, cmd] of filteredCommands) {
+                embed.addFields(
+                  { name: `/${cmd.name}`, 
+                  value: cmd.description || 'Aucune description disponible', 
+                  inline: false });
+            };
+
+        await interaction.reply({ embeds: [embed], ephemeral: true });
+          };
 }
 module.exports = {
     HelpCommand

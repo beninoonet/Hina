@@ -9,7 +9,10 @@ dotenv.config();
 
 class KissCommand extends Command {
   constructor(context, options) {
-    super(context, { ...options });
+    super(context, { ...options,
+      name: 'kiss',
+      description: 'Fais un bisou à quelqu\'un *(existe en contextmenu)*',
+     });
   }
   // Enregistrer la commande
   registerApplicationCommands(registry) {
@@ -25,9 +28,9 @@ class KissCommand extends Command {
   }
 
   fetchWaifu() {
-        return fetch('https://api.waifu.pics/sfw/kiss')
+        return fetch('https://nekos.best/api/v2/kiss')
           .then(response => response.json())
-          .then(data => data.url)
+          .then(data => data.results[0].url)
           .catch(error => {
             console.error('Error fetching waifu image:', error);
             throw new Error('Failed to fetch waifu image');

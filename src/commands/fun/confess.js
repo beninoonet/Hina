@@ -47,7 +47,7 @@ class ConfessCommand extends Command {
       reason: 'Discussion pour la confession',
     });
 
-    thead.send({ content: `Discussion pour la confession : ${message}` });
+    thead.send({ content: `Discussion pour la confession : \n${message}` });
     await interaction.reply({ content: 'Ta confession a été envoyée anonymement !', ephemeral: true });
   }
 }

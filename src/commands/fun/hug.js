@@ -9,13 +9,16 @@ dotenv.config();
 
 class HugCommand extends Command {
   constructor(context, options) {
-    super(context, { ...options });
+    super(context, { ...options,
+      name: 'hug',
+      description: 'Fais un câlin à quelqu\'un *(existe en contextmenu)*',
+     });
   }
 
   fetchWaifu() {
-      return fetch('https://api.waifu.pics/sfw/hug')
+      return fetch('https://nekos.best/api/v2/hug')
         .then(response => response.json())
-        .then(data => data.url)
+        .then(data => data.results[0].url)
         .catch(error => {
           console.error('Error fetching waifu image:', error);
           throw new Error('Failed to fetch waifu image');

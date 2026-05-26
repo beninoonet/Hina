@@ -3,7 +3,10 @@ const { EmbedBuilder } = require('discord.js');
 
 class RoleInfoCommand extends Command {
   constructor(context, options) {
-    super(context, { ...options });
+    super(context, { ...options,
+      name: 'roleinfo',
+      description: 'Obtenir des informations sur un rôle',
+     });
   }
 
 

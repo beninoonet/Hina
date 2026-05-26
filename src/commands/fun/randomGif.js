@@ -7,7 +7,10 @@ dotenv.config();
 
 class RandomGifCommand extends Command {
   constructor(context, options) {
-    super(context, { ...options });
+    super(context, { ...options,
+      name: 'randomgif',
+      description: 'Affiche un GIF aléatoire',
+     });
   }
   // Enregistrer la commande 
   registerApplicationCommands(registry) {

@@ -3,7 +3,10 @@ const { MessageFlags, EmbedBuilder } = require('discord.js');
 
 class UserInfoCommand extends Command {
   constructor(context, options) {
-    super(context, { ...options });
+    super(context, { ...options,
+      name: 'userinfo',
+      description: 'Obtenir des informations sur un utilisateur',
+     });
   }
 
 
