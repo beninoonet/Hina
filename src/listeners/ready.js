@@ -38,8 +38,8 @@ class ReadyListener extends Listener {
             name: guild.name,
             member_count: guild.memberCount,
             joined_at: new Date().toISOString(),
-            active: true,
-            owner_id: guild.ownerId
+            owner_id: guild.ownerId,
+            created_at: new Date().toISOString(),
         }));
 
         const { error } = await supabase

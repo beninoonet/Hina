@@ -1,4 +1,4 @@
-const { Listener } = require('@sapphire/framework');
+const { Listener, Events } = require('@sapphire/framework');
 
 const { supabase } = require('../lib/supabase');
 
@@ -6,7 +6,7 @@ class GuildCreateListener extends Listener {
     constructor(context, options) {
         super(context, {    
             ...options,
-            event: 'guildCreate'
+            event: Events.GuildCreate
         });
     } 
 
