@@ -1,11 +1,11 @@
-const { Listener } = require('@sapphire/framework');
+const { Listener, Events } = require('@sapphire/framework');
 
 class ReadyListener extends Listener {
   constructor(context, options) {
     super(context, {
       ...options,
       once: true,
-      event: 'ready'
+      event: Events.ClientReady
     });
   }
 
